@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="css/template.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/jquery-2.2.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+	function linkify(inputText) {
+    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+	    //URLs starting with http://, https://, or ftp://
+	    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+	    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+	    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+	    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+	    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+	    //Change email addresses to mailto:: links.
+	    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+	    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+	    return replacedText;
+	}
+	$(document).ready(function(){
+		$('#actor').val(localStorage.getItem("userid"));
+		$('#actor_foto').val(localStorage.getItem("userid"));
+		page = 0;
+		offset = 0;
+		limit = 10;
+		url = "http://ygiis.mx/api?m=timeline&id="+localStorage.getItem("userid")+"&o="+offset+"&l="+limit;
+		var output = '';
+		//alert(url);
+		$.ajax({
+			url : url,
+			success : function(data){
+				
+				$('#loading').fadeOut('fast');
+				$.each(data, function( index, value ) {
+					//console.log(value.app);
+					if(value.app=="profile"){
+						output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+linkify(value.title)+'</div><div class="clear"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+					}
+					if(value.app=="profile.avatar.upload"){
+						att = $.parseJSON(value.params);
+						att = att.attachment;
+						att = att.replace("thumb_","");
+						output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+value.name +' actualizó su foto de perfil</div><div class="clear"></div><div class="imagen_publicacion"><img src="http://ygiis.mx/'+att+'" alt="" class="w100"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+					}
+					if(value.app=="photos"){
+						att = value.photoid;
+						att = att.replace("thumb_","");
+						output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+value.name +' ha subido una foto</div><div class="clear"></div><div class="imagen_publicacion"><img src="http://ygiis.mx/'+att+'" alt="" class="w100"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+					}
+					$.each(value.comments, function( index2, value2 ) {
+						output+='<div class="com">'+value2.comment+'</div>';
+						//console.log(value2.comment);
+					});
+				});
+				$('#contenedorpublicaciones').append(output);
+			},
+			beforeSend : function(){
+				$('#loading').fadeIn('fast')
+			}
+		});
+		
+		$('#cargarmas').click(function(e){
+			e.preventDefault();
+			page ++;
+			offset = page * limit;
+			url = "http://ygiis.mx/api?m=timeline&id="+localStorage.getItem("userid")+"&o="+offset+"&l="+limit;
+			$.ajax({
+				url : url,
+				success : function(data){
+					output = "";
+					$('#loading').fadeOut('fast');
+					$.each(data, function( index, value ) {
+						//console.log(value.app);
+						console.log(value.comments);
+						if(value.app=="profile"){
+							output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+linkify(value.title)+'</div><div class="clear"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+						}
+						if(value.app=="profile.avatar.upload"){
+							att = $.parseJSON(value.params);
+							att = att.attachment;
+							att = att.replace("thumb_","");
+							output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+value.name +' actualizó su foto de perfil</div><div class="clear"></div><div class="imagen_publicacion"><img src="http://ygiis.mx/'+att+'" alt="" class="w100"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+						}
+						if(value.app=="photos"){
+							att = value.photoid;
+							att = att.replace("thumb_","");
+							output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+value.name +' ha subido una foto</div><div class="clear"></div><div class="imagen_publicacion"><img src="http://ygiis.mx/'+att+'" alt="" class="w100"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+						}
+					});
+					$('#contenedorpublicaciones').append(output);
+				},
+				beforeSend : function(){
+					$('#loading').fadeIn('fast')
+				}
+			});
+		});
+		/*BOTÓN DE PUBLICAR */
+		$('#botonpublicar').click(function(e){
+			e.preventDefault();
+			data = $('#publicar').serialize();
+			url = "http://ygiis.mx/api/?m=post_status";
+			$.ajax({
+				url : url,
+				type : "POST",
+				data : data,
+				success : function(data){
+					location.reload();
+				},
+				beforeSend : function(){
+					$('#loading').fadeIn('fast');
+				}
+			})
+		});
+		$('#publicar_foto').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: "http://192.168.24.51/apiygiis/post_photo.php",
+				type: "POST",
+				data:  new FormData(this),
+				contentType: false,
+				cache: false,
+				processData:false,
+				success: function(data){
+					alert(data);
+				},
+				error: function(data){
+					alert(data)
+				} 	        
+			});
+		});
+		$(document).on("click", '.megusta', function(event) { 
+			event.preventDefault();
+			$.ajax({
+				url : $(this).attr('rel'),
+				dataType: 'text',
+				success : function(data){
+					location.reload();
+				},
+				beforeSend : function(data){
+					$('#loading').fadeIn('fast');
+				}
+			});
+		});
+		$(document).on("click",".botonpublicar_comentario",function(event){
+			event.preventDefault();
+			url =  "http://ygiis.mx/api/?m=comment&comentario="+$(this).prev( ".input" ).val()+$(this).attr('rel');
+			console.log(url);
+			$.ajax({
+				url : url,
+				dataType: 'text',
+				success : function(data){
+					console.log(data);
+					location.reload();
+				},
+				beforeSend : function(data){
+					$('#loading').fadeIn('fast');
+				}
+			});
+		});
+	});
+	</script>
+</head>
+<body class="home">
+	<div id="header">
+		<div id="busqueda">
+			<input  type="text" placeholder="Buscar">
+			<a href="#" id="buscar"><img src="images/lupa.png" alt="Buscar"></a>
+		</div>
+	</div>
+	<div id="menu_top">
+		<ul>
+			<li><a href="video.html"><img src="images/estado.png" alt="Estado"></a></li>
+			<li><a href="foto.html"><img src="images/foto.png" alt="Foto"></a></li>
+			<li><a href="perfil.html"><img src="images/perfil.png" alt="Perfil"></a></li>
+		</ul>
+	</div>
+	<div id="content">
+		<div class="container">
+			<div class="twelve column">
+				<form action="" id="publicar">
+					<input type="hidden" name="actor" id="actor">
+					<input type="text" placeholder="En qué estás pensando" class="input" name="status">
+					<input type="submit" value="publicar" class="publicar" id="botonpublicar">
+				</form>
+			</div>
+
+			<!--<div class="twelve column">
+				<form action="" id="publicar_foto" enctype="multipart/form-data">
+					<input type="hidden" name="actor" id="actor_foto">
+					<input type="text" placeholder="Di algo sobre esta foto" class="input" name="status">
+					<input type="submit" value="publicar" class="publicar" id="botonpublicar_foto">
+					<br><br>
+					<input type="file" name="foto">
+					<div class="clear"></div>
+				</form>
+			</div>-->
+			<div id="contenedorpublicaciones" class="twelve column">
+				
+			</div>
+			<civ class="clear"></civ>
+			<div class="twelve column">
+				<a href="" id="cargarmas">Cargar Más</a>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<ul>
+			<li>&nbsp;</li>
+			<li>&nbsp;</li>
+			<li>&nbsp;</li>
+			<li><a href="home.html"><img src="images/home.png" alt=""></a></li>
+			<!--
+			<li><a href=""><img src="images/solicitudes.png" alt=""></a></li>
+			<li><a href=""><img src="images/mensajes.png" alt="" style="margin-top: 5px;"></a></li>
+			<li><a href=""><img src="images/notificaciones.png" alt="" style="margin-top: 5px;"></a></li>-->
+			<li><a href="#" id="triggermenu"><img src="images/menu.png" alt=""></a></li>
+		</ul>
+	</div>
+	<ul id="menu">
+		<li><a href="perfil.html"><img src="images/b_perfil.png" class="menu"><span><img src="images/f1.jpg" alt="F" class="flecha"></span></a></li>
+		<!--<li><a href=""><img src="images/b_miembros.png" class="menu"><span><img src="images/f2.jpg" alt="F" class="flecha"></span></a></li>
+		<li><a href=""><img src="images/b_amigos.png" class="menu"><span><img src="images/f3.jpg" alt="F" class="flecha"></span></a></li>
+		<li><a href=""><img src="images/b_grupos.png" class="menu"><span><img src="images/f4.jpg" alt="F" class="flecha"></span></a></li>
+		<li><a href="fotos.html"><img src="images/b_fotos.png" class="menu"><span><img src="images/f5.jpg" alt="F" class="flecha"></span></a></li>
+		<li><a href="videos.html"><img src="images/b_videos.png" class="menu"><span><img src="images/f6.jpg" alt="F" class="flecha"></span></a></li>
+		<!--<li><a href=""><img src="images/b_eventos.png" class="menu"><span><img src="images/f7.jpg" alt="F" class="flecha"></span></a></li>
+		<li style="margin-bottom:40px"><a href=""><img src="images/b_nbox.png" class="menu"><span><img src="images/f8.jpg" alt="F" class="flecha"></span></a></li>
+		<li style="border-top:1px solid #999999"><a href=""><img src="images/b_configuracion.png" class="menu" style="height:26px"><span><img src="images/f9.jpg" alt="F" class="flecha"></span></a></li>
+		<li><a href=""><img src="images/b_privacidad.png" class="menu"><span><img src="images/f9.jpg" alt="F" class="flecha"></span></a></li>
+		<li><a href=""><img src="images/b_soporte.png" class="menu"><span><img src="images/f9.jpg" alt="F" class="flecha"></span></a></li>-->
+		<li><a href="#" class="salir" id="logout"><img src="images/b_salir.png" alt=""></a></li>
+	</ul>
+	<div id="loading">
+		<img src="images/loading.gif" alt="">
+	</div>
+</body>
+</html>
