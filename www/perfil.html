@@ -145,11 +145,25 @@
 		});
 		$(document).on("click", '.megusta', function(event) { 
 			event.preventDefault();
+			url = $(this).attr('rel');
+			var element = $(this);
 			$.ajax({
-				url : $(this).attr('rel'),
+				url : url,
 				dataType: 'text',
 				success : function(data){
-					location.reload();
+					/* cambiar url */
+					nurl = element.attr('rel');
+					if (nurl.indexOf("yes") !=-1) {
+						nurl = nurl.replace("yes", "no");
+						element.attr('rel',nurl);
+						element.html('Me gusta');
+					}else{
+						nurl = nurl.replace("no", "yes");
+						element.attr('rel',nurl);
+						element.html('Ya no me gusta');
+						
+					}
+					$('#loading').fadeOut('fast');
 				},
 				beforeSend : function(data){
 					$('#loading').fadeIn('fast');
@@ -159,7 +173,6 @@
 		$(document).on("click",".botonpublicar_comentario",function(event){
 			event.preventDefault();
 			url =  "http://ygiis.mx/api/?m=comment&comentario="+$(this).prev( ".input" ).val()+$(this).attr('rel');
-			console.log(url);
 			$.ajax({
 				url : url,
 				dataType: 'text',
