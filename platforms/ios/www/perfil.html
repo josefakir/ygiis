@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="css/template.css">
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<script src="js/jquery-2.2.1.min.js"></script>
 	<script src="js/main.js"></script>
 	<script>
@@ -41,9 +42,14 @@
 				
 				$('#loading').fadeOut('fast');
 				$.each(data, function( index, value ) {
-					//console.log(value.app);
+					imagen = value.thumbnail;
+					if(value.thumbnail==null){
+						imagen = "http://ygiis.mx/components/com_community/assets/default-male-avatar.png";
+					}else{
+						imagen = "http://ygiis.mx/"+value.thumbnail;
+					}
 					if(value.app=="profile"){
-						output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+linkify(value.title)+'</div><div class="clear"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
+						output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="'+imagen+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+linkify(value.title)+'</div><div class="clear"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
 					}
 					if(value.app=="profile.avatar.upload"){
 						att = $.parseJSON(value.params);
@@ -57,8 +63,8 @@
 						output += '<div class="publicacion"><div class="quien_publica"><a href="" class="avatar"><img src="http://ygiis.mx/'+value.thumbnail+'" alt=""></a><a href="" class="nombre_publica"><div>'+value.name+'  -  <span>Hace 1 hora</span></div></a></div><div class="clear"></div><div class="contenido_publicacion">'+value.name +' ha subido una foto</div><div class="clear"></div><div class="imagen_publicacion"><img src="http://ygiis.mx/'+att+'" alt="" class="w100"></div><div class="clear"></div><div class="megusta_compartir"><a href="#" class="megusta" rel="http://ygiis.mx/api/?m=like&id_actividad='+value.id+'&id_usuario='+localStorage.getItem("userid")+'&liked='+value.liked+'">'+value.textliked+'</a><a href="" class="compartir">Compartir</a></div><div class="clear"></div><div class="comentar"><input type="text" name="comentario" class="input" placeholder="Comentar"><input type="submit" value="publicar" class="publicar botonpublicar_comentario" rel="&id='+value.id+'&u='+localStorage.getItem("userid")+'"></div></div>';
 					}
 					$.each(value.comments, function( index2, value2 ) {
-						output+='<div class="com">'+value2.comment+'</div>';
-						//console.log(value2.comment);
+						output+='<div class="com"><div class="whocomments"><i class="fa fa-comment-o"></i><span>'+value2.name+'</span> dijo:</div><div class="clear"></div><div class="whatsaid">'+value2.comment+'</div></div>';
+
 					});
 				});
 				$('#contenedorpublicaciones').append(output);
@@ -139,11 +145,25 @@
 		});
 		$(document).on("click", '.megusta', function(event) { 
 			event.preventDefault();
+			url = $(this).attr('rel');
+			var element = $(this);
 			$.ajax({
-				url : $(this).attr('rel'),
+				url : url,
 				dataType: 'text',
 				success : function(data){
-					location.reload();
+					/* cambiar url */
+					nurl = element.attr('rel');
+					if (nurl.indexOf("yes") !=-1) {
+						nurl = nurl.replace("yes", "no");
+						element.attr('rel',nurl);
+						element.html('Me gusta');
+					}else{
+						nurl = nurl.replace("no", "yes");
+						element.attr('rel',nurl);
+						element.html('Ya no me gusta');
+						
+					}
+					$('#loading').fadeOut('fast');
 				},
 				beforeSend : function(data){
 					$('#loading').fadeIn('fast');
@@ -153,7 +173,6 @@
 		$(document).on("click",".botonpublicar_comentario",function(event){
 			event.preventDefault();
 			url =  "http://ygiis.mx/api/?m=comment&comentario="+$(this).prev( ".input" ).val()+$(this).attr('rel');
-			console.log(url);
 			$.ajax({
 				url : url,
 				dataType: 'text',
