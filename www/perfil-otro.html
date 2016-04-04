@@ -28,12 +28,12 @@
 	    return replacedText;
 	}
 	$(document).ready(function(){
-		$('#actor').val(localStorage.getItem("userid"));
-		$('#actor_foto').val(localStorage.getItem("userid"));
+		$('#actor').val(localStorage.getItem("busqueda_usuario"));
+		$('#actor_foto').val(localStorage.getItem("busqueda_usuario"));
 		page = 0;
 		offset = 0;
 		limit = 10;
-		url = "http://ygiis.mx/api?m=perfil&id="+localStorage.getItem("userid")+"&o="+offset+"&l="+limit;
+		url = "http://ygiis.mx/api?m=perfil&id="+localStorage.getItem("busqueda_usuario")+"&o="+offset+"&l="+limit;
 		var output = '';
 		//alert(url);
 		$.ajax({
@@ -78,7 +78,7 @@
 			e.preventDefault();
 			page ++;
 			offset = page * limit;
-			url = "http://ygiis.mx/api?m=perfil&id="+localStorage.getItem("userid")+"&o="+offset+"&l="+limit;
+			url = "http://ygiis.mx/api?m=perfil&id="+localStorage.getItem("busqueda_usuario")+"&o="+offset+"&l="+limit;
 			$.ajax({
 				url : url,
 				success : function(data){

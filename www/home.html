@@ -28,6 +28,7 @@
 	    return replacedText;
 	}
 	$(document).ready(function(){
+		console.log(localStorage);
 		$('#actor').val(localStorage.getItem("userid"));
 		$('#actor_foto').val(localStorage.getItem("userid"));
 		page = 0;
@@ -197,10 +198,13 @@
 </head>
 <body class="home">
 	<div id="header">
-		<!--<div id="busqueda">
+		<div id="busqueda">
 			<input  type="text" placeholder="Buscar">
 			<a href="#" id="buscar"><img src="images/lupa.png" alt="Buscar"></a>
-		</div>-->
+		</div>
+		<div id="resultadosbusqueda">
+			
+		</div>
 	</div>
 	<div id="menu_top">
 		<ul>
