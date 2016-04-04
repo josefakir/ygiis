@@ -75,6 +75,17 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 .whocomments{    margin-bottom: 12px;
     float: left; font-style: italic; font-size: 10px}
     .whatsaid{font-size: 12px}
+#resultadosbusqueda{background: #fff; -webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.5);
+-moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.5);
+box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.5);     margin-top: 80px;
+}
+.bus {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;font-family: 'junction_regularregular';     font-style: italic;
+    line-height: normal;
+    font-size: 12px;    
+}
+.bus a{color: #999999;}
 @media only screen and (min-width: 961px) and (max-width: 1200px) {
 
 }

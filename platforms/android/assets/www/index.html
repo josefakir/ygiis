@@ -58,8 +58,8 @@
 			$.ajax({
 				url : url,
 				success : function(data){
+					console.log(data)
 					if(data.userid>0){
-						console.log(data);
 						localStorage.setItem('userid', data.userid);
 						localStorage.setItem('username', data.username);
 						localStorage.setItem('session_id', data.session_id);
@@ -67,9 +67,9 @@
 						window.location = "home.html";
 					}else{
 						$('#loading').fadeOut('fast');
-						alert('Credenciales inválidas')
+						//alert('Credenciales inválidas')
+						alert(data.error_description)
 					}
-					
 				},
 				beforeSend : function(){
 					$('#loading').fadeIn('fast');
