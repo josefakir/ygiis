@@ -24,7 +24,7 @@
 }
 body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-position:  center; background-attachment:  fixed; -webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;}
 #plecas{background: url(../images/plecas.png); background-size: cover; width: 100%; height: 100%; position: absolute; top: 0}
-#login{background:#65a9df; min-height: 280px}
+#login{background:#65a9df; min-height: 280px;    padding-bottom: 20px;}
 .input_login{border: none; outline: none; width: 80%; height: 30px; background: #fff; margin: 10px auto; display: block; padding: 0 10px}
 .w80{width: 80%; display: block; margin: 10px auto}
 .acidregular{font-family: 'acidregular'}
@@ -72,20 +72,12 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 .comentar{margin: 10px 0}
 .com {background: #f1f1f1;padding: 10px;color: #999;font-size: 14px;border-bottom: 1px solid #ccc; font-weight: bold}
 .whocomments span{margin-left: 5px; font-weight: bold; }
-.whocomments{    margin-bottom: 12px;
-    float: left; font-style: italic; font-size: 10px}
-    .whatsaid{font-size: 12px}
-#resultadosbusqueda{background: #fff; -webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.5);
--moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.5);
-box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.5);     margin-top: 80px;
-}
-.bus {
-    padding: 5px;
-    border-bottom: 1px solid #ccc;font-family: 'junction_regularregular';     font-style: italic;
-    line-height: normal;
-    font-size: 12px;    
-}
+.whocomments{    margin-bottom: 12px;float: left; font-style: italic; font-size: 10px}
+.whatsaid{font-size: 12px}
+#resultadosbusqueda{background: #fff; -webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.5);-moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.5);box-shadow:4px 4px 5px 0px rgba(50, 50, 50, 0.5);margin-top: 80px;}
+.bus {padding: 5px;border-bottom: 1px solid #ccc;font-family: 'junction_regularregular';     font-style: italic;line-height: normal;font-size: 12px;    }
 .bus a{color: #999999;}
+#status{text-align: center; color: #fff;font-family: 'junction_regularregular'; margin-top: 5px}
 @media only screen and (min-width: 961px) and (max-width: 1200px) {
 
 }
