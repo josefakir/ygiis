@@ -43,19 +43,19 @@
                 "parents": {
                     "FacebookAppID": [
                         {
-                            "xml": "<string>758977557580333</string>",
+                            "xml": "<string>961323307299283</string>",
                             "count": 1
                         }
                     ],
                     "FacebookDisplayName": [
                         {
-                            "xml": "<string>Ygiis</string>",
+                            "xml": "<string>testlocal2</string>",
                             "count": 1
                         }
                     ],
                     "CFBundleURLTypes": [
                         {
-                            "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb758977557580333</string></array></dict></array>",
+                            "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb961323307299283</string></array></dict></array>",
                             "count": 1
                         }
                     ],
@@ -77,8 +77,8 @@
     },
     "installed_plugins": {
         "cordova-plugin-facebook4": {
-            "APP_ID": "758977557580333",
-            "APP_NAME": "Ygiis",
+            "APP_ID": "961323307299283",
+            "APP_NAME": "testlocal2",
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
         "cordova-plugin-whitelist": {

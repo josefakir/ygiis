@@ -8,9 +8,12 @@
 	<link rel="stylesheet" href="css/main.css">
 	<script src="js/jquery-2.2.1.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="cordova.js"></script>
+	<script src="js/facebookConnectPlugin.js"></script>
 </head>
 <body>
 <script>
+/*
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     if (response.status === 'connected') {
@@ -26,9 +29,6 @@
       document.getElementById('status').innerHTML = 'Por favor inicia sesión en Facebook ';
     }
   }
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
@@ -38,7 +38,7 @@
   window.fbAsyncInit = function() {
   FB.init({
    // appId      : '961323307299283',
-   appId : '758977557580333',
+   appId : '961323307299283',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -49,8 +49,6 @@
   });
 
   };
-
-  // Load the SDK asynchronously
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -58,9 +56,6 @@
     js.src = "http://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     FB.logout();
     FB.api('/me', { locale: 'es_MX', fields: 'name, email' }, function(response) {
@@ -82,13 +77,9 @@
 			    console.log(arguments);
 			}
     	})
-    	/*
-        console.log(response.name);
-        console.log(response.email);
-        console.log(response.id);
-    	*/
     });
   }
+  */
 </script>
 	<div id="plecas"></div>
 	<div class="container">
@@ -108,10 +99,11 @@
 				</form>
 				<p>&nbsp;</p>
 				<!--<a href="#" onclick="FB.logout();" style="text-align: center;">cerrar</a>-->
-				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" style="    display: block;
+				<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" style="    display: block;
     margin: 0 auto;
     width: 70px;
-"></fb:login-button>
+"></fb:login-button>-->
+				<p class="tac"><a href="javascript:void(0)" id="botonfb" onclick="login();"><img src="images/fblogin.png" alt="FB"></a></p>
     			<p id="status"></p>
 			</div>
 			<p>&nbsp;</p>
@@ -170,5 +162,54 @@
 	<div id="loading">
 		<img src="images/loading.gif" alt="">
 	</div>
+
+
+        </div>
+        <div id="fb-root"></div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
+        <script type="text/javascript">
+            var login = function () {
+
+                facebookConnectPlugin.login( ["email"], 
+                    function (response) { 
+                    	facebookid = response.authResponse.userID
+                    	//alert(facebookid);
+
+                    	facebookConnectPlugin.api(facebookid+"/?fields=id,email,name", ["public_profile"],
+		  					function onSuccess (result) {
+		  						name = result.name;
+		  						email = result.email;
+		  						url = "http://ygiis.mx/api/?m=loginFacebook&u="+email+"&name="+name;
+						    	$.ajax({
+						    		url : url,
+						    		success : function(data){
+						    			if(data!=""){
+						    				//alert("jose");
+						    				//obtener id de usuario
+						    				localStorage.setItem('userid', data[0][0]);
+											localStorage.setItem('username', data[0][2]);
+											window.location = "home.html";
+											//localStorage.setItem('session_id', data.session_id);
+						    			}
+						    		},
+						    		error: function() {
+									    console.log(arguments);
+									}
+						    	});
+
+		  					}, function onError (error) {
+		   						alert(result)
+							}
+						);
+                    },
+                    function (response) { 
+                    	//alert(JSON.stringify(response)) 
+                    });
+            }
+            
+          
+        </script>
+
 </body>
 </html>
