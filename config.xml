@@ -81,6 +81,10 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="ios" spec="~4.0.1" />
     <engine name="android" spec="~5.1.1" />
+    <engine name="ios" spec="~4.0.1" />
+    <plugin name="cordova-plugin-facebook4" spec="~1.7.0">
+        <variable name="APP_ID" value="758977557580333" />
+        <variable name="APP_NAME" value="Ygiis" />
+    </plugin>
 </widget>

@@ -1,14 +1,25 @@
 {
     "prepare_queue": {
         "installed": [],
-        "uninstalled": []
+        "uninstalled": [
+            {
+                "plugin": "cordova-plugin-facebook4",
+                "id": "cordova-plugin-facebook4",
+                "topLevel": true
+            }
+        ]
     },
     "config_munge": {
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-facebook4": {
+            "APP_ID": "758977557580333",
+            "APP_NAME": "Ygiis",
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         }
     },
     "dependent_plugins": {}

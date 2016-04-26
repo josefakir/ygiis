@@ -37,7 +37,8 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '961323307299283',
+   // appId      : '961323307299283',
+   appId : '758977557580333',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -54,23 +55,32 @@
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
+    js.src = "http://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
-    
+    FB.logout();
     FB.api('/me', { locale: 'es_MX', fields: 'name, email' }, function(response) {
-    	console.log('Welcome!  Fetching your information.... ');
-    	//url = "http://ygiis.mx/api/?m=loginFacebook?u="+response.email;
+    	url = "http://ygiis.mx/api/?m=loginFacebook&u="+response.email+"&name="+response.name;
     	$.ajax({
-    		url : "http://ygiis.mx/api/?m=loginFacebook?u=asdf",
-    		success : function(a){
-
-    			console.log(a);
-    		}
+    		url : url,
+    		success : function(data){
+    			if(data!=""){
+    				//alert("jose");
+    				//obtener id de usuario
+    				console.log(data[0]);
+    				localStorage.setItem('userid', data[0][0]);
+					localStorage.setItem('username', data[0][2]);
+					window.location = "home.html";
+					//localStorage.setItem('session_id', data.session_id);
+    			}
+    		},
+    		error: function() {
+			    console.log(arguments);
+			}
     	})
     	/*
         console.log(response.name);
@@ -97,7 +107,7 @@
 					<p class="tac"><a id="iniciarsesion" href="#"><img src="images/login.jpg" alt=""></a></p>
 				</form>
 				<p>&nbsp;</p>
-				<a href="#" onclick="FB.logout();" style="text-align: center;">cerrar</a>
+				<!--<a href="#" onclick="FB.logout();" style="text-align: center;">cerrar</a>-->
 				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" style="    display: block;
     margin: 0 auto;
     width: 70px;
@@ -142,7 +152,7 @@
 						localStorage.setItem('username', data.username);
 						localStorage.setItem('session_id', data.session_id);
 						$('#loading').fadeOut('fast');
-						window.location = "home.html";
+						º
 					}else{
 						$('#loading').fadeOut('fast');
 						//alert('Credenciales inválidas')
