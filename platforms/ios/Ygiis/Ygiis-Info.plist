@@ -60,16 +60,18 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string></string>
     <key>FacebookAppID</key>
-    <string>961323307299283</string>
+    <string>758977557580333</string>
     <key>FacebookDisplayName</key>
-    <string>testlocal2</string>
+    <string>Ygiis</string>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>fb961323307299283</string>
+          <string>fb758977557580333</string>
         </array>
       </dict>
     </array>

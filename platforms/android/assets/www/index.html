@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="css/template.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/jquery-2.2.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="cordova.js"></script>
+	<script src="js/facebookConnectPlugin.js"></script>
+</head>
+<body>
+
+	<div id="plecas"></div>
+	<div class="container">
+		<div class="three column">&nbsp;</div>
+		<div class="six column">
+			<img src="images/logo.png" alt="Logo" class="w100">
+			<div id="login" class="w100">
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<form action="">
+					<p class="w80 acidregular white">Usuario</p>
+					<input type="text" class="input_login" name="usuario" id="usuario">
+					<p class="w80 acidregular white">Contrasena:</p>
+					<input type="password" class="input_login" name="pass" id="pass">
+					<p>&nbsp;</p>
+					<p class="tac"><a id="iniciarsesion" href="#"><img src="images/login.jpg" alt=""></a></p>
+				</form>
+				<p>&nbsp;</p>
+				<!--<a href="#" onclick="FB.logout();" style="text-align: center;">cerrar</a>-->
+				<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" style="    display: block;
+    margin: 0 auto;
+    width: 70px;
+"></fb:login-button>-->
+				<p class="tac"><a href="javascript:void(0)" id="botonfb" onclick="login();"><img src="images/fblogin.png" alt="FB"></a></p>
+    			<p id="status"></p>
+			</div>
+			<p>&nbsp;</p>
+			
+			<!--<a href="home.html">
+				<img class="w100" src="images/fb.jpg" alt="">
+			</a>-->
+		</div>
+		<div class="three column">&nbsp;</div>
+	</div>
+	<script>
+	$(document).ready(function(){
+		/* sesion */
+		if(localStorage.getItem("userid")>0){
+			window.location="home.html";
+		};
+		/* fin sesion */
+		back = 1;
+		window.setInterval(function(){
+			var image = $('body');
+			image.css("background-image", "url('images/b"+back+".jpg')");
+			
+			if(back==3){
+				back=1;
+			}else{
+				back++;
+			}
+		}, 5000);
+		$('#iniciarsesion').click(function(e){
+			e.preventDefault();
+			url = "http://ygiis.mx/index.php/rest/post/user/login?username="+$('#usuario').val()+"&password="+$('#pass').val();
+			$.ajax({
+				url : url,
+				success : function(data){
+					console.log(data)
+					if(data.userid>0){
+						localStorage.setItem('userid', data.userid);
+						localStorage.setItem('username', data.username);
+						localStorage.setItem('session_id', data.session_id);
+						$('#loading').fadeOut('fast');
+						º
+					}else{
+						$('#loading').fadeOut('fast');
+						//alert('Credenciales inválidas')
+						alert(data.error_description)
+					}
+				},
+				beforeSend : function(){
+					$('#loading').fadeIn('fast');
+				}
+			})
+
+		});
+	});
+	</script>
+	<div id="loading">
+		<img src="images/loading.gif" alt="">
+	</div>
+
+
+        </div>
+        <div id="fb-root"></div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
+        <script type="text/javascript">
+            var login = function () {
+
+                facebookConnectPlugin.login( ["email"], 
+                    function (response) { 
+                    	facebookid = response.authResponse.userID
+                    	//alert(facebookid);
+
+                    	facebookConnectPlugin.api(facebookid+"/?fields=id,email,name", ["public_profile"],
+		  					function onSuccess (result) {
+		  						name = result.name;
+		  						email = result.email;
+		  						url = "http://ygiis.mx/api/?m=loginFacebook&u="+email+"&name="+name;
+						    	$.ajax({
+						    		url : url,
+						    		success : function(data){
+
+						    			if(data!=""){
+						    				//alert("jose");
+						    				//obtener id de usuario
+						    				localStorage.setItem('userid', data[0][0]);
+											localStorage.setItem('username', data[0][2]);
+											window.location = "home.html";
+											//localStorage.setItem('session_id', data.session_id);
+						    			}else{
+						    				alert("Regístrate desde http://ygiis.mx");
+						    			}
+						    		},
+						    		error: function() {
+									    console.log(arguments);
+									}
+						    	});
+
+		  					}, function onError (error) {
+		   						alert(result)
+							}
+						);
+                    },
+                    function (response) { 
+                    	alert(JSON.stringify(response)) 
+                    });
+            }
+            
+          
+        </script>
+
+</body>
+</html>

@@ -7,14 +7,75 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-facebook4": {
-            "APP_ID": "961323307299283",
-            "APP_NAME": "testlocal2",
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-vibration": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "758977557580333",
+            "APP_NAME": "Ygiis",
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        }
+    }
 }
