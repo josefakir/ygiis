@@ -27,16 +27,13 @@
 					<p class="w80 acidregular white">Contrasena:</p>
 					<input type="password" class="input_login" name="pass" id="pass">
 					<p>&nbsp;</p>
-					<p class="tac"><a id="iniciarsesion" href="#"><img src="images/login.jpg" alt=""></a></p>
+					<p class="tac"><a href="" id="iniciarsesion">Login</a></p>
 				</form>
 				<p>&nbsp;</p>
-				<!--<a href="#" onclick="FB.logout();" style="text-align: center;">cerrar</a>-->
-				<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" style="    display: block;
-    margin: 0 auto;
-    width: 70px;
-"></fb:login-button>-->
+				
 				<p class="tac"><a href="javascript:void(0)" id="botonfb" onclick="login();"><img src="images/fblogin.png" alt="FB"></a></p>
     			<p id="status"></p>
+    			<p class="tac"><a href="registro.html" class="white acidregular" style="text-decoration:none">¿No tienes cuenta? Haz click aquí</a></p>
 			</div>
 			<p>&nbsp;</p>
 			
@@ -69,17 +66,15 @@
 			url = "http://ygiis.mx/index.php/rest/post/user/login?username="+$('#usuario').val()+"&password="+$('#pass').val();
 			$.ajax({
 				url : url,
-				success : function(data){
-					console.log(data)
+				success : function(data){					
 					if(data.userid>0){
 						localStorage.setItem('userid', data.userid);
 						localStorage.setItem('username', data.username);
 						localStorage.setItem('session_id', data.session_id);
 						$('#loading').fadeOut('fast');
-						º
+						window.location = "home.html";
 					}else{
 						$('#loading').fadeOut('fast');
-						//alert('Credenciales inválidas')
 						alert(data.error_description)
 					}
 				},
@@ -116,7 +111,7 @@
 						    	$.ajax({
 						    		url : url,
 						    		success : function(data){
-
+						    			console.log(data);
 						    			if(data!=""){
 						    				//alert("jose");
 						    				//obtener id de usuario
@@ -125,7 +120,8 @@
 											window.location = "home.html";
 											//localStorage.setItem('session_id', data.session_id);
 						    			}else{
-						    				alert("Regístrate desde http://ygiis.mx");
+						    				//alert("Regístrate desde http://ygiis.mx");
+
 						    			}
 						    		},
 						    		error: function() {

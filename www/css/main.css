@@ -38,7 +38,7 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 #busqueda input:-ms-input-placeholder{font-family: 'junction_regularregular'; font-style: italic;}
 #busqueda input:-moz-placeholder{font-family: 'junction_regularregular'; font-style: italic;}
 #busqueda input::-moz-placeholder {font-family: 'junction_regularregular'; font-style: italic;}
-.input{width: 70%;height: 30px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;padding: 0 5%; border: none; outline: none; }
+.input{width: 71%;height: 30px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;padding: 0 5%; border: none; outline: none; }
 #busqueda a {position: absolute;right: -26%;top: 0;}
 #busqueda a img{width: 30px}
 #menu_top{background: #e0e0e0; height: 50px; width: 100%; position: fixed;font-family: 'junction_regularregular'; }
@@ -78,6 +78,18 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 .bus {padding: 5px;border-bottom: 1px solid #ccc;font-family: 'junction_regularregular';     font-style: italic;line-height: normal;font-size: 12px;    }
 .bus a{color: #999999;}
 #status{text-align: center; color: #fff;font-family: 'junction_regularregular'; margin-top: 5px}
+#iniciarsesion{background: #0082B6; color: #fff;font-family: 'acidregular'; display: block; text-decoration: none; width: 150px; margin: 0 auto; padding: 10px 0;-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px; font-size: 20px}
+label.error {
+    color: red;
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-family: 'acidregular';
+    position: absolute;
+}
+
 @media only screen and (min-width: 961px) and (max-width: 1200px) {
 
 }
