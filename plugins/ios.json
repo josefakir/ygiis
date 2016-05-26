@@ -13,9 +13,6 @@
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
-        "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
@@ -34,6 +31,11 @@
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "758977557580333",
+            "APP_NAME": "Ygiis",
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
@@ -49,6 +51,9 @@
         "cordova-plugin-media": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
+        },
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
@@ -62,11 +67,6 @@
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.graphicsandcode.ygiis"
-        },
-        "cordova-plugin-facebook4": {
-            "APP_ID": "758977557580333",
-            "APP_NAME": "Ygiis",
             "PACKAGE_NAME": "com.graphicsandcode.ygiis"
         }
     },
