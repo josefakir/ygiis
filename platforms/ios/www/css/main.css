@@ -38,7 +38,7 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 #busqueda input:-ms-input-placeholder{font-family: 'junction_regularregular'; font-style: italic;}
 #busqueda input:-moz-placeholder{font-family: 'junction_regularregular'; font-style: italic;}
 #busqueda input::-moz-placeholder {font-family: 'junction_regularregular'; font-style: italic;}
-.input{width: 70%;height: 30px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;padding: 0 5%; border: none; outline: none; }
+.input{width: 71%;height: 30px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;padding: 0 5%; border: none; outline: none; }
 #busqueda a {position: absolute;right: -26%;top: 0;}
 #busqueda a img{width: 30px}
 #menu_top{background: #e0e0e0; height: 50px; width: 100%; position: fixed;font-family: 'junction_regularregular'; }

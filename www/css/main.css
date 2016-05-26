@@ -56,12 +56,14 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 #menu li a span img.flecha{ right: 0;position: absolute;top: 0px; height: 100%}
 .salir img{ width: 50px; margin: 10px auto; display: block;}
 .avatar img{width: 50px; float: left;}
-.publicacion{background: #f1f1f1; padding: 5px; margin-top: 5px}
+.publicacion{background: #f1f1f1; padding: 5px; margin-top: 5px;    width: 96%;
+    margin: 2% auto;}
 .clear {clear: both}
 .nombre_publica{text-decoration:  none; display: block; margin-top: 18px; position: absolute; left: 70px}
-.nombre_publica div{color: #999999; font-weight: bold; }
+.nombre_publica div{color: #999999; font-weight: bold;margin-left: 20px;
+ }
 .nombre_publica div span{font-style: italic; font-weight: lighter;    font-size: 10px;}
-.contenido_publicacion{color: #999999 ; margin: 10px 0; font-style: italic; line-height: normal; font-size: 12px}
+.contenido_publicacion{color: #999999 ; margin: 10px 0; font-style: italic; line-height: 20px; font-size: 12px}
 .megusta{width: 50%; font-style: italic; color: #999; text-decoration: none; float: left; display: block; text-align: center;    font-size: 12px;}
 .compartir{width: 50%; font-style: italic; color: #999; text-decoration: none; float: left; display: block; text-align: center;    font-size: 12px;}
 .imagen_publicacion{margin-bottom: 10px}
@@ -70,7 +72,8 @@ body{background: url(../images/b1.jpg);background-repeat:no-repeat; background-p
 #cargarmas{background: #7aa8e7;padding: 10px;margin: 4px auto;display: block;text-align: center;color: #fff;text-decoration: none;}
 .publicar{width: 55px;border: none;color: #fff;background: #7aa8e7;padding: 7px;text-align: center;}
 .comentar{margin: 10px 0}
-.com {background: #f1f1f1;padding: 10px;color: #999;font-size: 14px;border-bottom: 1px solid #ccc; font-weight: bold}
+.com {background: #f1f1f1;padding: 10px;color: #999;font-size: 14px;border-bottom: 1px solid #ccc; font-weight: bold; width: 96%;
+    margin: 2% auto;}
 .whocomments span{margin-left: 5px; font-weight: bold; }
 .whocomments{    margin-bottom: 12px;float: left; font-style: italic; font-size: 10px}
 .whatsaid{font-size: 12px}
@@ -89,7 +92,25 @@ label.error {
     font-family: 'acidregular';
     position: absolute;
 }
-
+.icono{color: #60aaea;margin-left: 10px}
+.enlaceicono{color: #fff; text-decoration: none; font-family: 'acidregular'; font-size: 30px;
+    margin-left: 5px;
+    font-weight: bold;    padding: 5px 0;
+    display: block;
+}
+.labelicono{    margin-left: 5px;}
+a#logout {
+    color: red;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding: 5px 0;
+    font-family: 'acidregular'; 
+    font-size: 20px
+}
+.whatsaid{color: #7aa8e7; text-decoration: none;    line-height: 20px; }
+.whatsaid a{text-decoration: none}
+a{text-decoration: none !important}
 @media only screen and (min-width: 961px) and (max-width: 1200px) {
 
 }
