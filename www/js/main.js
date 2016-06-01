@@ -11,13 +11,17 @@ $(document).ready(function(){
 		window.location = 'index.html';
 	});
 	$('#busqueda input').keyup(function() { 
-		url = "http://ygiis.mx/api?m=busqueda&u="+$(this).val();
+		url = "http://ygiis.mx/api?m=busqueda&u="+$(this).val()+"&id="+localStorage.getItem("userid");
 		$.ajax({
 			url : url,
 			success : function(data){
 					$('#resultadosbusqueda').html('');
 				$.each(data, function( index, value ) {
-					output = '<div class="bus"><a href="#" class="botonbusqueda" rel="'+value.id+'">'+value.name+'</a></div>';
+					output = '<div class="bus">';
+					output += '<a href="#"><i class="fa fa-check-circle" aria-hidden="true" style="font-size:20px; color:#1fa67a; margin:3px"></i></a>';
+					output += '<a href="#"><i class="fa fa-plus-circle" aria-hidden="true" style="font-size:20px; color:#ffcc00; margin:3px"></i></a>';
+					output += '<a href="#"><i class="fa fa-user-plus" aria-hidden="true" style="font-size:20px; color:#1fa67a; margin:3px"></i></a>';
+					output+='<a href="#" class="botonbusqueda" rel="'+value.id+'">'+value.name+'</a></div>';
 					$('#resultadosbusqueda').append(output);
 				})
 			}
